@@ -7,10 +7,65 @@
 .scene-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .scene-container canvas {
   display: block;
+}
+
+/* Live speed label pinned above the selected vehicle */
+.vehicle-label {
+  position: absolute;
+  transform: translate(-50%, -110%);
+  background: rgba(10, 10, 26, 0.9);
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  color: #00e5ff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* Ground camera ID label (shown on hover) */
+.camera-label {
+  position: absolute;
+  transform: translate(-50%, -140%);
+  background: rgba(36, 8, 56, 0.9);
+  border: 1px solid rgba(196, 77, 255, 0.55);
+  color: #d18cff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* Simulated ANPR readout pinned above a detected vehicle */
+.detection-label {
+  position: absolute;
+  transform: translate(-50%, -150%);
+  background: rgba(0, 18, 32, 0.92);
+  border: 1px solid rgba(0, 229, 255, 0.6);
+  color: #00e5ff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 35;
+}
+
+.detection-label.no-plate {
+  border-color: rgba(255, 82, 82, 0.8);
+  color: #ff6e6e;
+  background: rgba(46, 6, 6, 0.92);
 }
 
 .overlay {
@@ -185,4 +240,141 @@
 .switch input:checked ~ .thumb {
   transform: translateX(18px);
   background: #00e5ff;
+}
+
+.clear-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 0;
+  background: rgba(255, 32, 32, 0.15);
+  border: 1px solid rgba(255, 32, 32, 0.5);
+  border-radius: 4px;
+  color: #ff5050;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clear-button:hover {
+  background: rgba(255, 32, 32, 0.3);
+}
+
+/* ANPR fusion panel */
+.fusion-panel {
+  margin-top: 20px;
+  border-top: 1px solid rgba(0, 229, 255, 0.2);
+  padding-top: 14px;
+}
+
+.fusion-title {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  font-weight: normal;
+}
+
+.fusion-meta {
+  font-size: 12px;
+  color: rgba(0, 229, 255, 0.75);
+  margin: 0 0 10px;
+}
+
+.fusion-empty {
+  font-size: 12px;
+  color: rgba(0, 229, 255, 0.4);
+  margin: 0;
+}
+
+.journey-list {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.journey-row {
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.journey-row:hover {
+  background: rgba(0, 229, 255, 0.1);
+}
+
+.journey-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.journey-plate {
+  font-size: 13px;
+  color: #00e5ff;
+  letter-spacing: 1px;
+}
+
+.journey-badge {
+  font-size: 11px;
+  color: #9ff3ff;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  border-radius: 3px;
+  padding: 0 5px;
+}
+
+.journey-badge.alert {
+  color: #ff6e6e;
+  border-color: rgba(255, 82, 82, 0.6);
+}
+
+.journey-chain {
+  font-size: 12px;
+  color: rgba(220, 235, 255, 0.85);
+}
+
+.journey-segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.seg {
+  font-size: 11px;
+  color: #8fd8ff;
+}
+
+.seg-jump {
+  color: #ff6e6e;
+}
+
+.journey-tip {
+  font-size: 11px;
+  color: rgba(0, 229, 255, 0.45);
+  margin: 0 0 10px;
+}
+
+.fusion-reset {
+  width: 100%;
+  padding: 8px 0;
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  border-radius: 4px;
+  color: #7fdfff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.fusion-reset:hover {
+  background: rgba(0, 229, 255, 0.25);
 }
