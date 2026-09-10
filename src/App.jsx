@@ -149,9 +149,10 @@ function createRoadLine(coords) {
   });
   if (points.length < 2) return null;
 
-  const geom = new THREE.BufferGeometry().setFromPoints(points);
-  const mat = new THREE.LineBasicMaterial({ color: 0xff9100, linewidth: 2 });
-  return new THREE.Line(geom, mat);
+  const curve = new THREE.CatmullRomCurve3(points);
+  const geom = new THREE.TubeGeometry(curve, points.length * 2, 1.2, 4, false);
+  const mat = new THREE.MeshBasicMaterial({ color: 0xff9100 });
+  return new THREE.Mesh(geom, mat);
 }
 
 function createCoverageDisc(color, x, z) {
@@ -332,7 +333,18 @@ export default function App() {
               }
             }
           } else if (isRoad) {
+             const visibleRoadTypes = new Set([
+                 'motorway',
+                 'trunk',
+                 'primary',
+                 'secondary',
+                 'tertiary'
+            ]);
+
+            if (!visibleRoadTypes.has(String(props.highway))) continue;
+
             let coords;
+
             if (geom.type === 'LineString') {
               coords = geom.coordinates;
             } else if (geom.type === 'MultiLineString') {
